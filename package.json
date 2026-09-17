@@ -1,0 +1,63 @@
+{
+  "name": "@crossly/cli",
+  "version": "0.1.0",
+  "description": "Crossly from the terminal — every endpoint, for people and for agents.",
+  "license": "MIT",
+  "homepage": "https://crossly.net",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crossly-dev/crossly-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crossly-dev/crossly-cli/issues"
+  },
+  "keywords": [
+    "crossly",
+    "cli",
+    "reselling",
+    "crossposting",
+    "marketplace",
+    "ebay",
+    "poshmark",
+    "mercari",
+    "depop"
+  ],
+  "type": "module",
+  "bin": {
+    "crossly": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "generate": "node scripts/generate-commands.mjs",
+    "build": "node scripts/generate-commands.mjs && tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepack": "node scripts/generate-commands.mjs && tsc",
+    "banner": "node scripts/banner-demo.mjs"
+  },
+  "dependencies": {
+    "@crossly/sdk": "^0.1.0",
+    "@crossly/mcp": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
