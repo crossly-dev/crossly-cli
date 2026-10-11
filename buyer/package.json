@@ -1,0 +1,62 @@
+{
+  "name": "@crossly/buyer-cli",
+  "version": "0.1.0",
+  "description": "Your Crossly shopping from the terminal — cart, orders, wishlists, offers and cashback.",
+  "license": "MIT",
+  "homepage": "https://crossly.net",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crossly-dev/crossly-cli.git",
+    "directory": "buyer"
+  },
+  "bugs": {
+    "url": "https://github.com/crossly-dev/crossly-cli/issues"
+  },
+  "keywords": [
+    "crossly",
+    "buyer",
+    "cli",
+    "shopping",
+    "cart",
+    "cashback",
+    "marketplace"
+  ],
+  "type": "module",
+  "bin": {
+    "crossly-buyer": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepack": "tsc",
+    "_typecheck_note": "buyer-mcp's and buyer-sdk's dist/ are gitignored and their exports maps type there, so `tsc --noEmit` alone fails on a fresh clone (TS2307 on @crossly/buyer-mcp/registry) or checks against a stale registry (the round-6 vault tools missing). `pnpm -r build` gets away with it because it is topologically ordered AND emits; `pnpm -r typecheck` is ordered but emits nothing, so both dependencies are built here, SDK first (pnpm runs a filtered set in dependency order). Tests need no build: vitest.config.ts reads both packages from source.",
+    "typecheck": "pnpm --filter @crossly/buyer-sdk --filter @crossly/buyer-mcp build && tsc --noEmit",
+    "build:deps": "pnpm --filter @crossly/buyer-sdk --filter @crossly/buyer-mcp build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@crossly/buyer-sdk": "^0.1.0",
+    "@crossly/buyer-mcp": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
